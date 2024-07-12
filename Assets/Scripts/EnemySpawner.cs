@@ -12,6 +12,10 @@ public class EnemySpawner : MonoBehaviour
 
     private void Start()
     {
+        
+    }
+    public void WaveStart()
+    {
         StartCoroutine(IESpawn());
     }
 

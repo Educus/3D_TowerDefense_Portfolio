@@ -30,7 +30,12 @@ public class Enemy : MonoBehaviour
         {
             transform.position = Vector3.MoveTowards(transform.position, destination, moveSpeed * Time.deltaTime);
             // transform.LookAt(destination);
-            transform.rotation = Quaternion.Lerp(transform.rotation, Quaternion.LookRotation(destination - transform.position), 0.1f);
+            transform.rotation = Quaternion.Lerp
+                (
+                    transform.rotation,
+                    Quaternion.LookRotation(destination - transform.position),
+                    0.1f
+                );
         }
     }
 }
