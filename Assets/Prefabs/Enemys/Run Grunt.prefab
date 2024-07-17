@@ -276,9 +276,9 @@ GameObject:
   m_Component:
   - component: {fileID: 7733934920026557501}
   - component: {fileID: 6197947626908806068}
-  - component: {fileID: 7661467488666168010}
+  - component: {fileID: 6770955970852373229}
   m_Layer: 0
-  m_Name: WalkGruntHP 1
+  m_Name: Run Grunt
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -311,7 +311,7 @@ Animator:
   m_GameObject: {fileID: 2275479617365003598}
   m_Enabled: 1
   m_Avatar: {fileID: 9000000, guid: 406486edf02d8d74da3b2ca225e21254, type: 3}
-  m_Controller: {fileID: 9100000, guid: 54513d66dfe878d4ea1c81839c919e2f, type: 2}
+  m_Controller: {fileID: 9100000, guid: 73fa04cc872d9c2438c9c83a62dcacfc, type: 2}
   m_CullingMode: 1
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
@@ -322,7 +322,7 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
---- !u!114 &7661467488666168010
+--- !u!114 &6770955970852373229
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -334,7 +334,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c566f7abf0be55c4ebc2c0d500eb22c2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  moveSpeed: 1
+  moveSpeed: 2
 --- !u!1 &2530574283324693617
 GameObject:
   m_ObjectHideFlags: 0
