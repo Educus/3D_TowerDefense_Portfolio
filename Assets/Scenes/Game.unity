@@ -160,7 +160,7 @@ RectTransform:
   m_AnchorMin: {x: 1, y: 1}
   m_AnchorMax: {x: 1, y: 1}
   m_AnchoredPosition: {x: -15, y: -15}
-  m_SizeDelta: {x: 100, y: 100}
+  m_SizeDelta: {x: 125, y: 125}
   m_Pivot: {x: 1, y: 1}
 --- !u!114 &103992457
 MonoBehaviour:
@@ -608,8 +608,15 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   prefab:
+  - {fileID: -5456293417441132645, guid: 0b60cd9893c696046b5b518363dcd885, type: 3}
+  - {fileID: -6962675227169757046, guid: 9d4574d23f4d2a043b346bf3ebc65ba0, type: 3}
+  - {fileID: 3880536337529108232, guid: 61da1a12433c9d644bdc7b6d84aebbb7, type: 3}
+  - {fileID: 6034090950655796099, guid: 783618f491befa04fafcd4a779610631, type: 3}
   - {fileID: 7661467488666168010, guid: 550e40cfd86b2984f82c8287f38c9d91, type: 3}
   - {fileID: 6770955970852373229, guid: 9925dd46c947b1c49a764f838d4178c2, type: 3}
+  - {fileID: -6521952231227059072, guid: 4fd7f771006878347aad62b18a03c005, type: 3}
+  - {fileID: 8990698504782817924, guid: 058dbb2b37acdaf4f9b6e95fea5692fd, type: 3}
+  - {fileID: 1590172180924309948, guid: 6569676d2eb0d2e4f99200592c3093c7, type: 3}
   enemyValue: 0
   spawnRate: 1.5
   spawnCount: 5
