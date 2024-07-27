@@ -28,6 +28,25 @@ public class SceneController : Singleton<SceneController>
         loadImage.gameObject.SetActive(false);
     }
 
+    public IEnumerator ReFade()
+    {
+
+        loadImage.gameObject.SetActive(true);
+
+        Color color = loadImage.color;
+
+        color.a = 0;
+
+        while (color.a <= 1.0f)
+        {
+            color.a += Time.deltaTime;
+
+            loadImage.color = color;
+
+            yield return null;
+        }
+    }
+
     public IEnumerator AsyncLoad(int index)
     {
         AsyncOperation asyncOperation = SceneManager.LoadSceneAsync(index);
