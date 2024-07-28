@@ -7,18 +7,26 @@ public class StageManager : MonoBehaviour
     [SerializeField] GameObject[] gameMapPrefabs;
 
     public GameObject gameMap;
+
+    public int stage;
+    public int round;
+
     private void Awake()
     {
+        stage = ScoreManager.Instance.stage;
+        round = ScoreManager.Instance.round;
+
         CreateMap();
     }
 
     public void CreateMap()
     {
-        gameMap = Instantiate(gameMapPrefabs[0]);
+        gameMap = Instantiate(gameMapPrefabs[stage]);
         gameMap.transform.position = Vector3.zero;
     }
-    void Update()
+
+    public GameObject GetMap()
     {
-        
+        return gameMap;
     }
 }
