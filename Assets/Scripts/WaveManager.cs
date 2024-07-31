@@ -5,25 +5,28 @@ using UnityEngine;
 
 public class WaveManager : MonoBehaviour
 {
-    [SerializeField] EnemySpawner enemySpawner;
-    [SerializeField] GameObject waveButton;     // ¿şÀÌºê ½ÃÀÛ½Ã ¹öÆ°ÀÇ ºñÈ°¼ºÈ­, ¿şÀÌºê Á¾·á½Ã È°¼ºÈ­
-    [SerializeField] int waveOrder = 0;         // ¸î ¹øÂ° ¿şÀÌºê         // ¹ÌÁ¶Á¤ 
-    [SerializeField] float waveTime = 0;        // ¿şÀÌºê ½Ã°£           // ¹ÌÁ¶Á¤
-    [SerializeField] float spawnRate = 1.5f;    // ½ºÆù °£°İ             // ¹ÌÁ¶Á¤
-    [SerializeField] int enemyType;             // »ı¼ºµÇ´Â ¸ó½ºÅÍ Á¾·ù                   // Á¶Á¤
-    [SerializeField] int[,] enemySerialNumber;     // »ı¼ºÇÒ ¸ó½ºÅÍÀÇ ¹øÈ£[¿şÀÌºê,Á¾·ù]    // Á¶Á¤
-    [SerializeField] int[,] enemyNumber;           // ¸ó½ºÅÍ ¼ö[¿şÀÌºê,Á¾·ù]              // Á¶Á¤
+    [SerializeField] EnemySpawner enemySpawner; 
+    [SerializeField] GameObject waveButton;     // ì‹œì‘ë²„íŠ¼
+    [SerializeField] int waveOrder = 0;         // ëª‡ ë²ˆì§¸ ì›¨ì´ë¸Œì¸ê°€
+    [SerializeField] float waveTime = 0;        // ë‹¤ìŒ ì›¨ì´ë¸Œê¹Œì§€ ëŒ€ê¸°ì‹œê°„
+    [SerializeField] float spawnRate = 1.5f;    // ëª¬ìŠ¤í„° ìŠ¤í° ê°„ê²©
+    
+    public int enemyType;                   // ìƒì„±ë˜ëŠ” ëª¬ìŠ¤í„°ì˜ ì¢…ë¥˜
+    public int[,] enemySerialNumber;        // ëª¬ìŠ¤í„° ì‹œë¦¬ì–¼ ë„˜ë²„
+    public int[,] enemyNumber;              // ëª¬ìŠ¤í„° ìƒì„± ìˆ˜
 
     public bool waitSpawn = true;
 
-    public int stage;
-    public int round;
+    int startWave;
     public string[] waveStrings;
 
     private void Start()
     {
-        stage = ScoreManager.Instance.stage;
-        round = ScoreManager.Instance.round;
+        int stage = ScoreManager.Instance.stage;
+        int round = ScoreManager.Instance.round;
+        enemySerialNumber = new int[5, enemySpawner.prefab.Length];
+        enemyNumber = new int[5, enemySpawner.prefab.Length];
+        startWave = (stage * 6 * 5) + (round * 5); // ìŠ¤í…Œì´ì§€ * 6ë¼ìš´ë“œ * 5ì›¨ì´ë¸Œ + ë¼ìš´ë“œ * 5ì›¨ì´ë¸Œ
     }
 
     private void Update()
@@ -53,22 +56,18 @@ public class WaveManager : MonoBehaviour
         waitSpawn = false;
         waveTime = 0;
     }
-    public void WaveStart() // ÇÒ°Å
+    public void WaveStart()
     {
-        // ¿şÀÌºê ¸¶´Ù ¸îÁ¾·ùÀÇ ¸ó½ºÅÍ¸¦ ¼ÒÈ¯ÇÒ °ÍÀÌ¸ç, ¾î¶² ¸ó½ºÅÍ¸¦ ¸î¸¶¸® ¼ÒÈ¯ÇÒ °ÍÀÎ°¡¸¦ for¹®À¸·Î
-        enemyType = 1;
-        enemySerialNumber[0,0] = 1;
-        enemyNumber[0,0] = 10;
-
         for(int wave = 0; wave < 5; wave++)
         {
+            waveStrings = waveEnemy[startWave + wave].Split(',');   // ì›¨ì´ë¸Œ ë¶ˆëŸ¬ì˜¤ê¸°
+            enemyType = int.Parse(waveStrings[0]);                  // ì›¨ì´ë¸Œë§ˆë‹¤ ìƒì„±ë˜ëŠ” ëª¬ìŠ¤í„°ì˜ ì¢…ë¥˜
+
             for (int i = 0; i < enemyType; i++)
             {
-                waveStrings = waveEnemy[i].Split(','); ;
-
-                enemySerialNumber[wave, i] = int.Parse(waveStrings[i]); // ÀÌ¾îÇÏ±â
+                enemySerialNumber[wave, i] = int.Parse(waveStrings[(i * 2) + 1]);
+                enemyNumber[wave, i] = int.Parse(waveStrings[((i + 1) * 2)]);
             }
-
         }
         
         StartCoroutine(Wave());
@@ -76,137 +75,146 @@ public class WaveManager : MonoBehaviour
 
     public IEnumerator Wave()
     {
-        waitSpawn = true;       // ¾÷µ¥ÀÌÆ® ÁßÁö
+        waitSpawn = true;       // update stop
 
-        for (int i = 0; i < enemyType; i++)
+        if (waveOrder < 5)          // total of 5 waves
         {
-            // ¾î¶²¿şÀÌºê¿¡ ¾î¶² ¸ó½ºÅÍ¸¦, ¾ó¸¶³ª, ¸îÃÊ¸¶´Ù ¼ÒÈ¯ÇÒ °ÍÀÎÁö
-            yield return StartCoroutine(enemySpawner.IESpawn(enemySerialNumber[waveOrder, i], enemyNumber[waveOrder, i], spawnRate));
-        }
+            for (int i = 0; i < enemyType; i++)
+            {
+                // howEnemy, howMany, howTime
+                yield return StartCoroutine(enemySpawner.IESpawn(enemySerialNumber[waveOrder, i], enemyNumber[waveOrder, i], spawnRate));
+            }
 
-        if (waveOrder < 5)          // ÃÖ´ë 5 ¿şÀÌºê
-        {
             waveOrder++;
-            waitSpawn = false;      // ¾÷µ¥ÀÌÆ® È°¼ºÈ­
-            waveTime = 30;          // 30ÃÊ ÀÌÈÄ¿¡ ¿şÀÌºê ½ÃÀÛ
+            waitSpawn = false;      // update start
+            waveTime = 30;          // 30s Initialization
         }
         else
         {
-            // ¸÷ÀÌ ´õÀÌ»ó Á¸Àç ÇÏÁö ¾ÊÀ» °æ¿ì
-            // Å¬¸®¾î
-            Debug.Log("Clear");
+            while(true)
+            {
+                yield return 0;
+
+                if(enemySpawner.transform.childCount == 0)  // (field Enemy == 0) = clear
+                {
+                    yield return new WaitForSeconds(3.0f);
+                    ScoreManager.Instance.SaveScore();
+
+                    break;
+                }
+            }
         }
     }
 
 
 
-    public string[] waveEnemy = // 
+    public string[] waveEnemy = // enemyType, enemySirialNumber1, enemyNumber1, SirialNumber2, Number2 ....
         {
-        "1,2,3,4,5", // Desert 1round 1wave
-        "", // Desert 1round 2wave
-        "", // Desert 1round 3wave
-        "", // Desert 1round 4wave
-        "", // Desert 1round 5wave
-        "", // Desert 2round 1wave
-        "", // Desert 2round 2wave
-        "", // Desert 2round 3wave
-        "", // Desert 2round 4wave
-        "", // Desert 2round 5wave
-        "", // Desert 3round 1wave
-        "", // Desert 3round 2wave
-        "", // Desert 3round 3wave
-        "", // Desert 3round 4wave
-        "", // Desert 3round 5wave
-        "", // Desert 4round 1wave
-        "", // Desert 4round 2wave
-        "", // Desert 4round 3wave
-        "", // Desert 4round 4wave
-        "", // Desert 4round 5wave
-        "", // Desert 5round 1wave
-        "", // Desert 5round 2wave
-        "", // Desert 5round 3wave
-        "", // Desert 5round 4wave
-        "", // Desert 5round 5wave
-        "", // Desert 6round 1wave
-        "", // Desert 6round 2wave
-        "", // Desert 6round 3wave
-        "", // Desert 6round 4wave
-        "", // Desert 6round 5wave
+        "1,0,5", // Desert 1round 1wave
+        "1,1,5", // Desert 1round 2wave
+        "2,0,6,1,4", // Desert 1round 3wave
+        "2,0,10,1,8", // Desert 1round 4wave
+        "2,0,15,1,10", // Desert 1round 5wave
+        "1,2,5", // Desert 2round 1wave
+        "1,3,5", // Desert 2round 2wave
+        "2,2,6,3,4", // Desert 2round 3wave
+        "2,2,10,3,8", // Desert 2round 4wave
+        "2,2,15,3,10", // Desert 2round 5wave
+        "1,4,5", // Desert 3round 1wave
+        "1,5,5", // Desert 3round 2wave
+        "2,4,6,5,4", // Desert 3round 3wave
+        "2,4,10,5,8", // Desert 3round 4wave
+        "2,6,10,7,8", // Desert 3round 5wave
+        "1,4,6", // Desert 4round 1wave
+        "2,4,6,5,3", // Desert 4round 2wave
+        "1,6,16", // Desert 4round 3wave
+        "1,8,1", // Desert 4round 4wave
+        "2,7,3,8,1", // Desert 4round 5wave
+        "2,0,6,1,6", // Desert 5round 1wave
+        "3,2,5,3,6,4,7", // Desert 5round 2wave
+        "3,4,8,5,6,4,8", // Desert 5round 3wave
+        "3,6,8,7,6,6,8", // Desert 5round 4wave
+        "1,8,2", // Desert 5round 5wave
+        "3,1,4,0,8,3,4", // Desert 6round 1wave
+        "4,0,6,2,6,4,6,6,4", // Desert 6round 2wave
+        "3,4,6,5,10", // Desert 6round 3wave
+        "2,6,10,8,1", // Desert 6round 4wave
+        "2,7,6,8,2", // Desert 6round 5wave
 
-        "", // Forest 1round 1wave
-        "", // Forest 1round 2wave
-        "", // Forest 1round 3wave
-        "", // Forest 1round 4wave
-        "", // Forest 1round 5wave
-        "", // Forest 2round 1wave
-        "", // Forest 2round 2wave
-        "", // Forest 2round 3wave
-        "", // Forest 2round 4wave
-        "", // Forest 2round 5wave
-        "", // Forest 3round 1wave
-        "", // Forest 3round 2wave
-        "", // Forest 3round 3wave
-        "", // Forest 3round 4wave
-        "", // Forest 3round 5wave
-        "", // Forest 4round 1wave
-        "", // Forest 4round 2wave
-        "", // Forest 4round 3wave
-        "", // Forest 4round 4wave
-        "", // Forest 4round 5wave
-        "", // Forest 5round 1wave
-        "", // Forest 5round 2wave
-        "", // Forest 5round 3wave
-        "", // Forest 5round 4wave
-        "", // Forest 5round 5wave
-        "", // Forest 6round 1wave
-        "", // Forest 6round 2wave
-        "", // Forest 6round 3wave
-        "", // Forest 6round 4wave
-        "", // Forest 6round 5wave
+        "1,0,5", // Forest 1round 1wave
+        "1,1,5", // Forest 1round 2wave
+        "2,0,6,1,4", // Forest 1round 3wave
+        "2,0,10,1,8", // Forest 1round 4wave
+        "2,0,15,1,10", // Forest 1round 5wave
+        "1,2,5", // Forest 2round 1wave
+        "1,3,5", // Forest 2round 2wave
+        "2,2,6,3,4", // Forest 2round 3wave
+        "2,2,10,3,8", // Forest 2round 4wave
+        "2,2,15,3,10", // Forest 2round 5wave
+        "1,4,5", // Forest 3round 1wave
+        "1,5,5", // Forest 3round 2wave
+        "2,4,6,5,4", // Forest 3round 3wave
+        "2,4,10,5,8", // Forest 3round 4wave
+        "2,6,10,7,8", // Forest 3round 5wave
+        "1,4,6", // Forest 4round 1wave
+        "2,4,6,5,3", // Forest 4round 2wave
+        "1,6,16", // Forest 4round 3wave
+        "1,8,1", // Forest 4round 4wave
+        "2,7,3,8,1", // Forest 4round 5wave
+        "2,0,6,1,6", // Forest 5round 1wave
+        "3,2,5,3,6,4,7", // Forest 5round 2wave
+        "3,4,8,5,6,4,8", // Forest 5round 3wave
+        "3,6,8,7,6,6,8", // Forest 5round 4wave
+        "1,8,2", // Forest 5round 5wave
+        "3,1,4,0,8,3,4", // Forest 6round 1wave
+        "4,0,6,2,6,4,6,6,4", // Forest 6round 2wave
+        "3,4,6,5,10", // Forest 6round 3wave
+        "2,6,10,8,1", // Forest 6round 4wave
+        "2,7,6,8,2", // Forest 6round 5wave
 
-        "", // Winter 1round 1wave
-        "", // Winter 1round 2wave
-        "", // Winter 1round 3wave
-        "", // Winter 1round 4wave
-        "", // Winter 1round 5wave
-        "", // Winter 2round 1wave
-        "", // Winter 2round 2wave
-        "", // Winter 2round 3wave
-        "", // Winter 2round 4wave
-        "", // Winter 2round 5wave
-        "", // Winter 3round 1wave
-        "", // Winter 3round 2wave
-        "", // Winter 3round 3wave
-        "", // Winter 3round 4wave
-        "", // Winter 3round 5wave
-        "", // Winter 4round 1wave
-        "", // Winter 4round 2wave
-        "", // Winter 4round 3wave
-        "", // Winter 4round 4wave
-        "", // Winter 4round 5wave
-        "", // Winter 5round 1wave
-        "", // Winter 5round 2wave
-        "", // Winter 5round 3wave
-        "", // Winter 5round 4wave
-        "", // Winter 5round 5wave
-        "", // Winter 6round 1wave
-        "", // Winter 6round 2wave
-        "", // Winter 6round 3wave
-        "", // Winter 6round 4wave
-        "", // Winter 6round 5wave
+        "1,0,5", // Winter 1round 1wave
+        "1,1,5", // Winter 1round 2wave
+        "2,0,6,1,4", // Winter 1round 3wave
+        "2,0,10,1,8", // Winter 1round 4wave
+        "2,0,15,1,10", // Winter 1round 5wave
+        "1,2,5", // Winter 2round 1wave
+        "1,3,5", // Winter 2round 2wave
+        "2,2,6,3,4", // Winter 2round 3wave
+        "2,2,10,3,8", // Winter 2round 4wave
+        "2,2,15,3,10", // Winter 2round 5wave
+        "1,4,5", // Winter 3round 1wave
+        "1,5,5", // Winter 3round 2wave
+        "2,4,6,5,4", // Winter 3round 3wave
+        "2,4,10,5,8", // Winter 3round 4wave
+        "2,6,10,7,8", // Winter 3round 5wave
+        "1,4,6", // Winter 4round 1wave
+        "2,4,6,5,3", // Winter 4round 2wave
+        "1,6,16", // Winter 4round 3wave
+        "1,8,1", // Winter 4round 4wave
+        "2,7,3,8,1", // Winter 4round 5wave
+        "2,0,6,1,6", // Winter 5round 1wave
+        "3,2,5,3,6,4,7", // Winter 5round 2wave
+        "3,4,8,5,6,4,8", // Winter 5round 3wave
+        "3,6,8,7,6,6,8", // Winter 5round 4wave
+        "1,8,2", // Winter 5round 5wave
+        "3,1,4,0,8,3,4", // Winter 6round 1wave
+        "4,0,6,2,6,4,6,6,4", // Winter 6round 2wave
+        "3,4,6,5,10", // Winter 6round 3wave
+        "2,6,10,8,1", // Winter 6round 4wave
+        "2,7,6,8,2", // Winter 6round 5wave
     };
 
 }
 
 enum EnemyType
 {
-    WalkMushroomSmile,
-    RunMushroomSmile,
-    WalkMushroomAngry,
-    RunMushroomAngry,
-    WalkGrunt,
-    RunGrunt,
-    WalkCactus,
-    RunCatus,
-    Golem
+    WalkMushroomSmile,  // 0
+    RunMushroomSmile,   // 1
+    WalkMushroomAngry,  // 2
+    RunMushroomAngry,   // 3
+    WalkGrunt,          // 4
+    RunGrunt,           // 5
+    WalkCactus,         // 6
+    RunCatus,           // 7
+    Golem               // 8
 }

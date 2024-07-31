@@ -6,7 +6,7 @@ using UnityEngine;
 
 public class EnemySpawner : MonoBehaviour
 {
-    [SerializeField] Enemy[] prefab;
+    [SerializeField] public Enemy[] prefab;
     [SerializeField] StageManager stageManager;
     [SerializeField] Transform[] corners;
 
