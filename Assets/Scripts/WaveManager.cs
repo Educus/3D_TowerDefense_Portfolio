@@ -5,7 +5,8 @@ using UnityEngine;
 
 public class WaveManager : MonoBehaviour
 {
-    [SerializeField] EnemySpawner enemySpawner; 
+    [SerializeField] EnemySpawner enemySpawner;
+    [SerializeField] ClearPanel clearPanel;
     [SerializeField] GameObject waveButton;     // 시작버튼
     [SerializeField] int waveOrder = 0;         // 몇 번째 웨이브인가
     [SerializeField] float waveTime = 0;        // 다음 웨이브까지 대기시간
@@ -31,6 +32,14 @@ public class WaveManager : MonoBehaviour
 
     private void Update()
     {
+        if (ScoreManager.Instance.hp <= 0)   // 플레이어의 체력이 0이 될 경우
+        {
+            StopAllCoroutines();    // 모든 코루틴 중지
+
+            clearPanel.gameClear = false;   // 클리어 실패
+            clearPanel.ShowScore();
+        }
+
         if (waitSpawn == true)
             return;
 
@@ -97,8 +106,11 @@ public class WaveManager : MonoBehaviour
 
                 if(enemySpawner.transform.childCount == 0)  // (field Enemy == 0) = clear
                 {
-                    yield return new WaitForSeconds(3.0f);
                     ScoreManager.Instance.SaveScore();
+
+                    yield return new WaitForSeconds(3.0f);
+
+                    clearPanel.ShowScore();
 
                     break;
                 }

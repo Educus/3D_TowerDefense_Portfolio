@@ -19,6 +19,7 @@ public class Enemy : MonoBehaviour
     {
         if (cornerQueue.Count <= 0)
         {
+            ScoreManager.Instance.hp -= 1;
             Destroy(gameObject);
             return;
         }

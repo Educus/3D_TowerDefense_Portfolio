@@ -17,10 +17,12 @@ public class ScoreManager : Singleton<ScoreManager>
 
     public int stage = -1;
     public int round = -1;
+    public int hp = 0;
 
     [SerializeField] string[] clearStage = new string[totalStage];
     private string saveScores = null;                       // 저장용 string
     public string[] score;                                  // 인게임 기록용 string[]
+    public int nowScore;                                    // 마지막 게임의 점수
 
     private void Start()
     {
@@ -78,22 +80,21 @@ public class ScoreManager : Singleton<ScoreManager>
         // 플레이어 체력 : max = 3, 70%이상 = 2, 이외 = 1
         // 이전 점수와 비교
         int hp = 50;
-        int score = 0;
 
         if(hp >= 60)
-            score = 3;
+            nowScore = 3;
         else if(hp >= 60*(0.7))
-            score = 2;
+            nowScore = 2;
         else
-            score = 1;
+            nowScore = 1;
 
         if (stage == -1 || round == -1) return;
 
         this.score = clearStage[stage].Split(',');
 
-        if (int.Parse(this.score[round]) < score)   // 이번에 얻은 점수가 기록된 점수보다 크다면 저장
+        if (int.Parse(this.score[round]) < nowScore)   // 이번에 얻은 점수가 기록된 점수보다 크다면 저장
         {
-            this.score[round] = score.ToString();
+            this.score[round] = nowScore.ToString();
 
             UpLoadScore();
         }

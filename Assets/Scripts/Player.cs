@@ -5,24 +5,18 @@ using UnityEngine;
 
 public class Player : MonoBehaviour
 {
-    public int life = 5;
-
     private void OnEnable()
     {
         InputManager.Instance.keyAction += OnKeyUpdate;
     }
-    void Start()
-    {
-        
-    }
     void OnKeyUpdate()
     {
-        if (life <= 0) return;
+        if (ScoreManager.Instance.hp <= 0) return;
 
-        if (Input.GetMouseButtonDown(0))        // Æ÷Å¾ ¼±ÅÃ
+        if (Input.GetMouseButtonDown(0))        // í¬íƒ‘ ì„ íƒ
         {
         }
-        else if (Input.GetMouseButtonDown(1))   // Æ÷Å¾ ¼³¸í ÆË¾÷
+        else if (Input.GetMouseButtonDown(1))   // í¬íƒ‘ ì„¤ëª… íŒì—…
         {
         }
     }
