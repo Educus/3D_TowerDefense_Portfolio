@@ -17,6 +17,11 @@ public class Enemy : MonoBehaviour
 
     private void Update()
     {
+        if (ScoreManager.Instance.hp <= 0)
+        {
+            return;
+        }
+
         if (cornerQueue.Count <= 0)
         {
             ScoreManager.Instance.hp -= 1;

@@ -38,6 +38,8 @@ public class WaveManager : MonoBehaviour
 
             clearPanel.gameClear = false;   // 클리어 실패
             clearPanel.ShowScore();
+
+            return;
         }
 
         if (waitSpawn == true)
@@ -149,7 +151,7 @@ public class WaveManager : MonoBehaviour
         "1,8,2", // Desert 5round 5wave
         "3,1,4,0,8,3,4", // Desert 6round 1wave
         "4,0,6,2,6,4,6,6,4", // Desert 6round 2wave
-        "3,4,6,5,10", // Desert 6round 3wave
+        "2,4,6,5,10", // Desert 6round 3wave
         "2,6,10,8,1", // Desert 6round 4wave
         "2,7,6,8,2", // Desert 6round 5wave
 
@@ -180,7 +182,7 @@ public class WaveManager : MonoBehaviour
         "1,8,2", // Forest 5round 5wave
         "3,1,4,0,8,3,4", // Forest 6round 1wave
         "4,0,6,2,6,4,6,6,4", // Forest 6round 2wave
-        "3,4,6,5,10", // Forest 6round 3wave
+        "2,4,6,5,10", // Forest 6round 3wave
         "2,6,10,8,1", // Forest 6round 4wave
         "2,7,6,8,2", // Forest 6round 5wave
 
@@ -211,7 +213,7 @@ public class WaveManager : MonoBehaviour
         "1,8,2", // Winter 5round 5wave
         "3,1,4,0,8,3,4", // Winter 6round 1wave
         "4,0,6,2,6,4,6,6,4", // Winter 6round 2wave
-        "3,4,6,5,10", // Winter 6round 3wave
+        "2,4,6,5,10", // Winter 6round 3wave
         "2,6,10,8,1", // Winter 6round 4wave
         "2,7,6,8,2", // Winter 6round 5wave
     };

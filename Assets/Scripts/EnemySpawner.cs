@@ -32,7 +32,7 @@ public class EnemySpawner : MonoBehaviour
     {
         int remaining = howMany;
 
-        while (remaining > 0)
+        while (remaining > 0 && ScoreManager.Instance.hp > 0)
         {
             yield return new WaitForSeconds(spawnRate);
             Enemy newEnemy = Instantiate(prefab[howEnemy], transform);

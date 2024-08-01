@@ -8,11 +8,11 @@ public class StageButton : MonoBehaviour
 {
     [SerializeField] TMP_Text roundText;
 
-    public int roundValue;      // ¼±ÅÃÇÑ ¶ó¿îµå
+    public int roundValue;      // ì„ íƒí•œ ë¼ìš´ë“œ
 
-    public int stage;           // ÇöÁ¦ ½ºÅ×ÀÌÁö
-    public int beforeStage = -1;     // ÀÌÀü ½ºÅ×ÀÌÁö
-    public string stageText;    // ½ºÅ×ÀÌÁö ÅØ½ºÆ®
+    public int stage;           // í˜„ì œ ìŠ¤í…Œì´ì§€
+    public int beforeStage = -1;     // ì´ì „ ìŠ¤í…Œì´ì§€
+    public string stageText;    // ìŠ¤í…Œì´ì§€ í…ìŠ¤íŠ¸
 
     private void Start()
     {
@@ -43,6 +43,7 @@ public class StageButton : MonoBehaviour
     public void SelectRound()
     {
         ScoreManager.Instance.NowRound(roundValue);
+        ScoreManager.Instance.ResetHp();
 
         Execute();
     }

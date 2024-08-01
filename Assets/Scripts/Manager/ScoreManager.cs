@@ -26,6 +26,8 @@ public class ScoreManager : Singleton<ScoreManager>
 
     private void Start()
     {
+        ResetHp();
+
         LoadClearStage();
 
         if (saveScores == null)
@@ -50,6 +52,11 @@ public class ScoreManager : Singleton<ScoreManager>
                 }
             }
         }
+    }
+
+    public void ResetHp()
+    {
+        hp = 5;
     }
 
     public string StageText(int stage)
