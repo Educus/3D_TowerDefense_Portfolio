@@ -9,7 +9,6 @@ public class MovingCamera : MonoBehaviour
     [SerializeField] float height;  // 카메라 높이
     [SerializeField] float speed;   // 카메라 스피드
 
-    private Vector3 cameraPosition;  // 카메라 위치
     private float cameraAngle;   // 카메라 시야각          // 65도 고정
     private float cameraLeftSize;      // 카메라의 왼쪽 길이
     private float cameraUpSize;        // 카메라의 위쪽 길이
@@ -31,9 +30,9 @@ public class MovingCamera : MonoBehaviour
     void Start()
     {
         camera = Camera.main;
-        planeScale = 41 + 5;    // 5 여유공간
+        planeScale = 41;
         speed = 20;
-        height = 7.5f;
+        height = transform.position.y - 2;      // 건물높이 적용
 
         zoomSpeed = 10;
 
@@ -72,15 +71,14 @@ public class MovingCamera : MonoBehaviour
         }
 
         // 카메라 보이는 각 최대치 제한
-        cameraPosition = transform.position;
         cameraAngle = camera.fieldOfView / 2;
 
-        cameraLeftSize = cameraPosition.y / (Mathf.Tan((90 - (cameraAngle * screenRatio)) * Mathf.Deg2Rad));
+        cameraLeftSize = height / (Mathf.Tan((90 - (cameraAngle * screenRatio)) * Mathf.Deg2Rad));
 
-        cameraUpSize = cameraPosition.y / Mathf.Tan((90 - (25 + cameraAngle)) * Mathf.Deg2Rad);
-        cameraDownSize = cameraPosition.y / Mathf.Tan((90 - (25 - cameraAngle)) * Mathf.Deg2Rad);
+        cameraUpSize = height / Mathf.Tan((90 - (25 + cameraAngle)) * Mathf.Deg2Rad);
+        cameraDownSize = height / Mathf.Tan((90 - (25 - cameraAngle)) * Mathf.Deg2Rad);
 
-        maxX = (planeScale / 2) - cameraLeftSize;
+        maxX = (planeScale / 2) - cameraLeftSize + 5;   // 여유공간
 
         maxZ = (planeScale / 2) - cameraUpSize;
         minZ = -(planeScale / 2) - cameraDownSize;
