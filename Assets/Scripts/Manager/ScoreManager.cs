@@ -88,9 +88,9 @@ public class ScoreManager : Singleton<ScoreManager>
         // 이전 점수와 비교
         int hp = 50;
 
-        if(hp >= 60)
+        if (hp >= 60)
             nowScore = 3;
-        else if(hp >= 60*(0.7))
+        else if (hp >= 60 * (0.7))
             nowScore = 2;
         else
             nowScore = 1;
@@ -132,26 +132,26 @@ public class ScoreManager : Singleton<ScoreManager>
     {
         for (int i = 0; i < totalStage; i++)
         {
-                if (i == 0)
-                {
-                    saveScores = clearStage[i];
-                }
-                else
-                {
-                    saveScores += clearStage[i];
-                }
+            if (i == 0)
+            {
+                saveScores = clearStage[i];
+            }
+            else
+            {
+                saveScores += clearStage[i];
+            }
 
-                if (i + 1 != totalRound)
-                {
-                    saveScores += ":";
-                }
+            if (i + 1 != totalRound)
+            {
+                saveScores += ":";
+            }
         }
 
         PlayerPrefs.SetString("Score", saveScores);
     }
     public void LoadClearStage()    // 파일 불러오기
     {
-        if(PlayerPrefs.HasKey("Score"));
+        if (PlayerPrefs.HasKey("Score")) ;
         {
             saveScores = PlayerPrefs.GetString("Score");
 

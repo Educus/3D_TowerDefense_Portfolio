@@ -20,16 +20,19 @@ public class StageMenuManager : MonoBehaviour
     
     public void SelectStage(int stage)
     {
-        ScoreManager.Instance.NowStage(stage);
+        if (stage != -1)
+        {
+            ScoreManager.Instance.NowStage(stage);
 
-        roundText.text = ScoreManager.Instance.StageText(stage);
+            roundText.text = ScoreManager.Instance.StageText(stage);
+        }
 
         StartCoroutine(IESelectStage());
     }
-    IEnumerator IESelectStage( )    // Stage ¼±ÅÃ ½Ã ¾îµÎ¿öÁö°í Active ºñÈ°¼ºÈ­ ¹× Round È°¼ºÈ­ ÈÄ ¹à¾ÆÁü
+    IEnumerator IESelectStage( )    // Stage ì„ íƒ ì‹œ ì–´ë‘ì›Œì§€ê³  Active ë¹„í™œì„±í™” ë° Round í™œì„±í™” í›„ ë°ì•„ì§
     {
         yield return StartCoroutine(SceneController.Instance.ReFade());
-        // ´Ù¸¥ ÄÚ·çÆ¾À» ½ÇÇà½ÃÅ°°í ÇØ´ç ÄÚ·çÆ¾ÀÌ ³¡³¯ ¶§±îÁö ´ë±â
+        // ë‹¤ë¥¸ ì½”ë£¨í‹´ì„ ì‹¤í–‰ì‹œí‚¤ê³  í•´ë‹¹ ì½”ë£¨í‹´ì´ ëë‚  ë•Œê¹Œì§€ ëŒ€ê¸°
         bool active = false;
         if (stageView.activeSelf == false)
         {

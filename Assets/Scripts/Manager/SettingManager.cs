@@ -7,6 +7,7 @@ public class SettingManager : Singleton<SettingManager>
     [SerializeField] GameObject prefab; // 설정 프리팹
 
     public GameObject settingMenu;
+    public SettingMenu menu;
 
     private void Start()
     {
@@ -27,12 +28,17 @@ public class SettingManager : Singleton<SettingManager>
         {
             CursorConfined();
 
-            Destroy(settingMenu);
+            if (menu != null)
+            {
+                menu.Continue();
+            }
 
             return;
         }
 
         settingMenu = Instantiate(prefab);
+        menu = settingMenu.GetComponent<SettingMenu>();
+
         Cursor.lockState = CursorLockMode.None;
     }
 
