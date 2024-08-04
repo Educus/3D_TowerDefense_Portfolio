@@ -79,5 +79,7 @@ public class Enemy : MonoBehaviour, IHitablea
         slowdown = 1;
 
         startingIESlow = false;
+
+        yield return null;
     }
 }
