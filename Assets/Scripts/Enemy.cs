@@ -1,13 +1,14 @@
 using System.Collections;
 using System.Collections.Generic;
-using Unity.VisualScripting;
 using UnityEngine;
 
-public class Enemy : MonoBehaviour
+public class Enemy : MonoBehaviour, IHitablea
 {
+    [SerializeField] float enemyHp;
     [SerializeField] float moveSpeed;
-
+    [SerializeField] float slowdown = 1;
     Queue<Transform> cornerQueue;
+    bool startingIESlow = false;
 
     public void Setup(Transform[] corrners)
     {
@@ -34,7 +35,7 @@ public class Enemy : MonoBehaviour
             cornerQueue.Dequeue();
         else
         {
-            transform.position = Vector3.MoveTowards(transform.position, destination, moveSpeed * Time.deltaTime);
+            transform.position = Vector3.MoveTowards(transform.position, destination, moveSpeed * slowdown * Time.deltaTime);
             // transform.LookAt(destination);
             transform.rotation = Quaternion.Lerp
                 (
@@ -43,5 +44,40 @@ public class Enemy : MonoBehaviour
                     0.1f
                 );
         }
+    }
+    public void Damage(float damage)
+    {
+        enemyHp -= damage;
+
+        if(enemyHp <= 0)
+        {
+            Destroy(gameObject);
+        }
+    }
+    public void Slow(float time, float slow)
+    {
+        if(startingIESlow)
+        {
+            StopCoroutine(IESlow(time, slow));
+        }
+        StartCoroutine(IESlow(time, slow));
+    }
+
+    IEnumerator IESlow(float time, float slow)
+    {
+        startingIESlow = true;
+
+        slowdown -= slowdown * slow;
+
+        while (time > 0)
+        {
+            time -= Time.deltaTime;
+
+            yield return null;
+        }
+
+        slowdown = 1;
+
+        startingIESlow = false;
     }
 }

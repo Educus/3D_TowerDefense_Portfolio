@@ -34,7 +34,7 @@ public class SettingMenu : MonoBehaviour
 
     public void Setting()
     {
-
+        // 비고
     }
 
     public void Exit()

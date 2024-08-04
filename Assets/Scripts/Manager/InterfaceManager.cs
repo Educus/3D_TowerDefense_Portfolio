@@ -5,7 +5,8 @@ public interface IInteractable
 
 public interface IHitablea
 {
-    public void Activate();
+    public void Damage(float damage);
+    public void Slow(float time, float slow);
 }
 
 public interface IUIHitablea

@@ -334,7 +334,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c566f7abf0be55c4ebc2c0d500eb22c2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  enemyHp: 30
   moveSpeed: 1
+  slowdown: 1
 --- !u!1 &2530574283324693617
 GameObject:
   m_ObjectHideFlags: 0
