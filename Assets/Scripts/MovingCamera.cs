@@ -53,20 +53,20 @@ public class MovingCamera : MonoBehaviour
         // 0.004f = Time.deltatime -> pause 상태에서도 움직이기 위함
         mousePosition = Input.mousePosition;
 
-        if (mousePosition.x >= (screenX - (screenX * 0.05)))
+        if (mousePosition.x >= (screenX - (screenX * 0.02)))
         {
             transform.Translate(Vector3.right * speed * 0.004f);
         }
-        else if(mousePosition.x <= screenX * 0.05)
+        else if(mousePosition.x <= screenX * 0.02)
         {
             transform.Translate(Vector3.left * speed * 0.004f);
         }
 
-        if (mousePosition.y >= (screenY - (screenY * 0.05)))
+        if (mousePosition.y >= (screenY - (screenY * 0.02)))
         {
             transform.position += Vector3.forward * speed * 0.004f;
         }
-        else if(mousePosition.y <= screenY * 0.05)
+        else if(mousePosition.y <= screenY * 0.02)
         {
             transform.position += Vector3.back * speed * 0.004f;
         }

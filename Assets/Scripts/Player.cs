@@ -20,10 +20,6 @@ public class Player : MonoBehaviour
         {
         }
     }
-    void Update()
-    {
-        
-    }
     private void OnDisable()
     {
         InputManager.Instance.keyAction -= OnKeyUpdate;

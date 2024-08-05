@@ -56,4 +56,25 @@ public class ClearPanel : MonoBehaviour
             }
         }
     }
+
+    public void NextButton()
+    {
+        ScoreManager.Instance.NowRound(++ScoreManager.Instance.round);
+        ScoreManager.Instance.ResetHp();
+        NewMap(2);
+    }
+    public void RetryButton()
+    {
+        ScoreManager.Instance.ResetHp();
+        NewMap(2);
+    }
+    public void HomeButton()
+    {
+        NewMap(1);
+    }
+
+    public void NewMap(int value)
+    {
+        StartCoroutine(SceneController.Instance.AsyncLoad(value));
+    }
 }
