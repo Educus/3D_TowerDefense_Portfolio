@@ -16,6 +16,11 @@ public class SettingManager : Singleton<SettingManager>
 
     private void Update()
     {
+        if (settingMenu == null && Cursor.lockState == CursorLockMode.None)
+        {
+            CursorConfined();
+        }
+
         if(Input.GetKeyUp(KeyCode.Escape))
         {
             SettingMenu();
@@ -24,7 +29,7 @@ public class SettingManager : Singleton<SettingManager>
 
     public void SettingMenu()
     {
-        if(settingMenu != null)
+        if (settingMenu != null)
         {
             CursorConfined();
 

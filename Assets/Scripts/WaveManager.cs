@@ -67,6 +67,19 @@ public class WaveManager : MonoBehaviour
         waitSpawn = false;
         waveTime = 0;
     }
+    public void PauseButton()
+    {
+        switch(Time.timeScale)
+        {
+            case 0:
+                Time.timeScale = 1;
+                break;
+            case 1:
+                Time.timeScale = 0;
+                break;
+        }
+    }
+
     public void WaveStart()
     {
         for(int wave = 0; wave < 5; wave++)

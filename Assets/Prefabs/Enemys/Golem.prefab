@@ -755,6 +755,7 @@ GameObject:
   - component: {fileID: 4585191273932832625}
   - component: {fileID: 8418161003176830288}
   - component: {fileID: 1590172180924309948}
+  - component: {fileID: 5117148043189308308}
   m_Layer: 7
   m_Name: Golem
   m_TagString: Enemy
@@ -815,3 +816,26 @@ MonoBehaviour:
   enemyHp: 100
   moveSpeed: 0.5
   slowdown: 1
+--- !u!136 &5117148043189308308
+CapsuleCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9120910376355154548}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 1
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Radius: 1.7
+  m_Height: 4.5
+  m_Direction: 1
+  m_Center: {x: 0, y: 2, z: 0.25}

@@ -4,8 +4,7 @@ using UnityEngine;
 
 public class Bullet : MonoBehaviour
 {
-    [SerializeField] float holdingTime = 2.0f;     // 총알 유지시간
-    [SerializeField] int moveSpeed = 1;
+    [SerializeField] int moveSpeed = 3;
     [SerializeField] Vector3 target;
 
     [SerializeField] public float damage;
@@ -37,9 +36,7 @@ public class Bullet : MonoBehaviour
     {
         transform.position = Vector3.MoveTowards(transform.position, target, moveSpeed * Time.deltaTime);
 
-        holdingTime -= Time.deltaTime;
-
-        if(holdingTime <= 0)
+        if(Vector3.Distance(transform.position, target) <= 0)
         {
             Destroy(gameObject);
         }

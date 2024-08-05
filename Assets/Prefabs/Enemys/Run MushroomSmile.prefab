@@ -270,6 +270,7 @@ GameObject:
   - component: {fileID: 3299211900922374979}
   - component: {fileID: 5563934261250577914}
   - component: {fileID: -6962675227169757046}
+  - component: {fileID: 1212549608120120390}
   m_Layer: 7
   m_Name: Run MushroomSmile
   m_TagString: Enemy
@@ -330,6 +331,29 @@ MonoBehaviour:
   enemyHp: 10
   moveSpeed: 2
   slowdown: 1
+--- !u!136 &1212549608120120390
+CapsuleCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3945520893472895613}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 1
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Radius: 0.525
+  m_Height: 1.125
+  m_Direction: 1
+  m_Center: {x: 0, y: 0.45, z: 0}
 --- !u!1 &4617437681338111640
 GameObject:
   m_ObjectHideFlags: 0
