@@ -1,13 +1,16 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Threading;
 using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class WaveManager : MonoBehaviour
 {
     [SerializeField] EnemySpawner enemySpawner;
     [SerializeField] ClearPanel clearPanel;
     [SerializeField] GameObject waveButton;     // 시작버튼
+    [SerializeField] Image timerImage;          // 시작버튼 타이머
     [SerializeField] int waveOrder = 0;         // 몇 번째 웨이브인가
     [SerializeField] float waveTime = 0;        // 다음 웨이브까지 대기시간
     [SerializeField] float spawnRate = 1.5f;    // 몬스터 스폰 간격
@@ -21,7 +24,7 @@ public class WaveManager : MonoBehaviour
     int startWave;
     public string[] waveStrings;
 
-    int remainTime;
+    int remainTime; // 남은 시간만큼 골드 추가
 
     private void Start()
     {
@@ -49,10 +52,13 @@ public class WaveManager : MonoBehaviour
 
         waveTime -= Time.deltaTime;
 
-        if(waveTime <= 20)
+        if (waveTime <= 20)
+        {
+            timerImage.fillAmount = waveTime / 20;
             waveButton.SetActive(true);
+        }
 
-        if(waveTime >= 0)
+            if (waveTime >= 0)
             return;
 
         if (waveTime <= 0)

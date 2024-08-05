@@ -87,7 +87,7 @@ public class MovingCamera : MonoBehaviour
         // 마우스 휠에 의한 시야각 조정(완료)
         zoomAmount = camera.fieldOfView + (-Input.GetAxis("Mouse ScrollWheel") * zoomSpeed);
 
-        camera.fieldOfView = Mathf.Clamp(zoomAmount, 20, 60);
+        camera.fieldOfView = Mathf.Clamp(zoomAmount, 10, 60);
 
         transform.position =
             new Vector3

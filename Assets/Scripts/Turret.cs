@@ -14,6 +14,7 @@ public class Turret : MonoBehaviour
     [SerializeField] int countBulletOut;
     [SerializeField] float attackRange = 5;
     [SerializeField] float cooltime;
+    [SerializeField] float cooltimeRate;
     [SerializeField] float damage = 0;
     [SerializeField] float slowTime = 0;
     [SerializeField] float slowdown = 0;
@@ -69,17 +70,33 @@ public class Turret : MonoBehaviour
                     {
                         transform.LookAt(target.transform.position);
 
-                        Bullet bullet = Instantiate(prefabBullet, bulletOut[Random.Range(0, countBulletOut - 1)].transform);
-                        bullet.Setup(target.transform.position + new Vector3(0,0.15f,0), damage, slowTime, slowdown);
-                        bullet = null;
+                        if (cooltimeRate <= 0)
+                        {
+                            cooltimeRate = cooltime;
 
-                        yield return new WaitForSeconds(cooltime);
+                            Bullet bullet = Instantiate(prefabBullet, bulletOut[Random.Range(0, countBulletOut - 1)].transform);
+                            bullet.Setup(target.transform.position + new Vector3(0, 0.15f, 0), damage, slowTime, slowdown);
+                            bullet = null;
+
+                            StartCoroutine(IECoolTime());
+                        }
+
+                        yield return null;
                     }
                 }
             }
 
             yield return null;
         } 
+    }
+
+    IEnumerator IECoolTime()
+    {
+        while(cooltimeRate > 0)
+        {
+            cooltimeRate -= Time.deltaTime;
+            yield return null;
+        }
     }
 
     public void ActiveTurret()
