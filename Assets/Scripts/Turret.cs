@@ -5,7 +5,7 @@ using UnityEngine;
 public class Turret : MonoBehaviour
 {
     [SerializeField] List<GameObject> enemys = null;
-    [SerializeField] GameObject target;
+    [SerializeField] GameObject target = null;
     [SerializeField] float shortDistance;
 
     [SerializeField] Bullet prefabBullet;
@@ -16,8 +16,10 @@ public class Turret : MonoBehaviour
     [SerializeField] float cooltime;
     [SerializeField] float damage = 0;
     [SerializeField] float slowTime = 0;
-    [SerializeField] float slowdown = 1;
-    
+    [SerializeField] float slowdown = 0;
+
+    [SerializeField] bool activeTurret = false;
+
     // 가장 가까운 적 찾기
     // 그 대상의 좌표 가져오기
     // 머리를 그 대상 방향으로 돌리기
@@ -34,7 +36,7 @@ public class Turret : MonoBehaviour
     {
         enemys = new List<GameObject>(GameObject.FindGameObjectsWithTag("Enemy"));
 
-        if (enemys != null)
+        if (enemys.Count != 0)
         {
             shortDistance = Vector3.Distance(gameObject.transform.position, enemys[0].transform.position);
 
@@ -55,16 +57,33 @@ public class Turret : MonoBehaviour
 
     IEnumerator ShotBullet()
     {
-        SearchEnemy();
-
-        if (target != null && Vector3.Distance(transform.position, target.transform.position) <= attackRange)
+        while (true)
         {
-            transform.LookAt(target.transform.position);
+            if (activeTurret)
+            {
+                SearchEnemy();
 
-            Bullet bullet = Instantiate(prefabBullet, bulletOut[Random.Range(0, countBulletOut)].transform);
-            bullet.Setup(target.transform.position, damage, slowTime, slowdown);
+                if (target != null)
+                {
+                    if (Vector3.Distance(transform.position, target.transform.position) <= attackRange)
+                    {
+                        transform.LookAt(target.transform.position);
 
-            yield return new WaitForSeconds(cooltime);
-        }
+                        Bullet bullet = Instantiate(prefabBullet, bulletOut[Random.Range(0, countBulletOut - 1)].transform);
+                        bullet.Setup(target.transform.position + new Vector3(0,0.15f,0), damage, slowTime, slowdown);
+                        bullet = null;
+
+                        yield return new WaitForSeconds(cooltime);
+                    }
+                }
+            }
+
+            yield return null;
+        } 
+    }
+
+    public void ActiveTurret()
+    {
+        activeTurret = true;
     }
 }

@@ -11,7 +11,7 @@ public class WaveManager : MonoBehaviour
     [SerializeField] int waveOrder = 0;         // 몇 번째 웨이브인가
     [SerializeField] float waveTime = 0;        // 다음 웨이브까지 대기시간
     [SerializeField] float spawnRate = 1.5f;    // 몬스터 스폰 간격
-    
+
     public int enemyType;                   // 생성되는 몬스터의 종류
     public int[,] enemySerialNumber;        // 몬스터 시리얼 넘버
     public int[,] enemyNumber;              // 몬스터 생성 수
@@ -20,6 +20,8 @@ public class WaveManager : MonoBehaviour
 
     int startWave;
     public string[] waveStrings;
+
+    int remainTime;
 
     private void Start()
     {
@@ -47,13 +49,13 @@ public class WaveManager : MonoBehaviour
 
         waveTime -= Time.deltaTime;
 
-        if(waveTime < 15)
+        if(waveTime <= 20)
             waveButton.SetActive(true);
 
-        if(waveTime > 0)
+        if(waveTime >= 0)
             return;
 
-        if (waveTime < 0)
+        if (waveTime <= 0)
         {
             waveButton.SetActive(false);
             WaveStart();
@@ -65,6 +67,7 @@ public class WaveManager : MonoBehaviour
         waveButton.SetActive(false);
 
         waitSpawn = false;
+        remainTime = (int)waveTime;
         waveTime = 0;
     }
     public void PauseButton()
@@ -84,6 +87,9 @@ public class WaveManager : MonoBehaviour
     {
         for(int wave = 0; wave < 5; wave++)
         {
+            if (wave != 0)
+                ScoreManager.Instance.BonusGold(remainTime);
+
             waveStrings = waveEnemy[startWave + wave].Split(',');   // 웨이브 불러오기
             enemyType = int.Parse(waveStrings[0]);                  // 웨이브마다 생성되는 몬스터의 종류
 

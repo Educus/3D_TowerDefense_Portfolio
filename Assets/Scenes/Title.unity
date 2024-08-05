@@ -1268,6 +1268,7 @@ MonoBehaviour:
   stage: -1
   round: -1
   hp: 0
+  gold: 0
   clearStage:
   - 
   - 

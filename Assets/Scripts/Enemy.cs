@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class Enemy : MonoBehaviour, IHitablea
@@ -22,14 +23,14 @@ public class Enemy : MonoBehaviour, IHitablea
         {
             return;
         }
-
+    
         if (cornerQueue.Count <= 0)
         {
             ScoreManager.Instance.hp -= 1;
             Destroy(gameObject);
             return;
         }
-
+    
         Vector3 destination = cornerQueue.Peek().position;
         if (Vector3.Distance(transform.position, destination) <= 0)
             cornerQueue.Dequeue();
@@ -45,12 +46,14 @@ public class Enemy : MonoBehaviour, IHitablea
                 );
         }
     }
+
     public void Damage(float damage)
     {
         enemyHp -= damage;
 
         if(enemyHp <= 0)
         {
+            ScoreManager.Instance.gold += 1;
             Destroy(gameObject);
         }
     }

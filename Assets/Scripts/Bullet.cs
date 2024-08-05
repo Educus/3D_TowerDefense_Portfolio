@@ -36,7 +36,7 @@ public class Bullet : MonoBehaviour
     {
         transform.position = Vector3.MoveTowards(transform.position, target, moveSpeed * Time.deltaTime);
 
-        if(Vector3.Distance(transform.position, target) <= 0)
+        if(Vector3.Distance(transform.position, target) <= 0.1f)
         {
             Destroy(gameObject);
         }

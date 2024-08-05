@@ -136,6 +136,7 @@ GameObject:
   - component: {fileID: 1090601116444248378}
   - component: {fileID: 5884828449431772727}
   - component: {fileID: 6291400352256243920}
+  - component: {fileID: 7246512093259108565}
   m_Layer: 0
   m_Name: FireTurret_Lv3
   m_TagString: Untagged
@@ -237,7 +238,29 @@ MonoBehaviour:
   - {fileID: 8112945788205540173}
   - {fileID: 2719709322557846153}
   countBulletOut: 0
+  attackRange: 5
   cooltime: 0
   damage: 0
   slowTime: 0
   slowdown: 1
+--- !u!65 &7246512093259108565
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9059211729904266983}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 3, y: 4, z: 3}
+  m_Center: {x: 0.000000059604645, y: 1, z: -0.00000008940697}

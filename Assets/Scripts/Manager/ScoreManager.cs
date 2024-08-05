@@ -18,6 +18,7 @@ public class ScoreManager : Singleton<ScoreManager>
     public int stage = -1;
     public int round = -1;
     public int hp = 0;
+    public int gold = 0;
 
     [SerializeField] string[] clearStage = new string[totalStage];
     private string saveScores = null;                       // 저장용 string
@@ -57,6 +58,11 @@ public class ScoreManager : Singleton<ScoreManager>
     public void ResetHp()
     {
         hp = 5;
+        gold = 30;
+    }
+    public void BonusGold(int time)
+    {
+        gold += (round * 20) + (time * 2);
     }
 
     public string StageText(int stage)
