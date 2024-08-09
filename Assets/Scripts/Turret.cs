@@ -69,6 +69,7 @@ public class Turret : MonoBehaviour
                     if (Vector3.Distance(transform.position, target.transform.position) <= attackRange)
                     {
                         transform.LookAt(target.transform.position);
+                        transform.localEulerAngles = new Vector3(0, transform.localEulerAngles.y, 0);
 
                         if (cooltimeRate <= 0)
                         {

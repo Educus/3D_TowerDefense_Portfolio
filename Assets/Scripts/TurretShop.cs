@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
+using UnityEditor;
 using UnityEngine;
 
 public class TurretShop : MonoBehaviour
@@ -9,19 +10,34 @@ public class TurretShop : MonoBehaviour
     [SerializeField] Turret createTurret;
     [SerializeField] Vector3[] height;
 
+    Ray ray;
+    Plane xy;
+    float distance;
+
+    Renderer renderer;
+    LayerMask mask;
+    LayerMask notMask;
+    bool hitLayer;
+    bool notHitLayer;
+
     int nowGold;
     int buyGold;
+    int turretValue;
 
     Vector3 nowMousePosition;
     Vector3 mousePosition;
 
+    Transform unableInstallBox;
+
     private void Start()
     {
         height = new Vector3[turretPrefab.Length];
+        mask = 1 << LayerMask.NameToLayer("TowerMap") ;
+        notMask = 1 << LayerMask.NameToLayer("Turret");
 
-        height[0] = new Vector3(0, 0.7f, 0);
-        height[1] = new Vector3(0, 1f, 0);
-        height[2] = new Vector3(0, 0.7f, 0);
+        height[0] = new Vector3(0, 0.75f, 0);
+        height[1] = new Vector3(0, 1.25f, 0);
+        height[2] = new Vector3(0, 0.9f, 0);
     }
 
     void Update()
@@ -29,18 +45,36 @@ public class TurretShop : MonoBehaviour
         if (createTurret != null)
         {
             mousePosition = Input.mousePosition;
-            Ray ray = Camera.main.ScreenPointToRay(mousePosition);
-            Plane xy = new Plane(Vector3.up, new Vector3(0, 0, 0));
-            float distance;
+            ray = Camera.main.ScreenPointToRay(mousePosition);
+            xy = new Plane(Vector3.up, new Vector3(0, 0, 0));
             xy.Raycast(ray, out distance);
             nowMousePosition = ray.GetPoint(distance);
 
-            createTurret.transform.position = nowMousePosition + new Vector3(0, 0.7f, 0);
+            nowMousePosition.x = Mathf.Floor(nowMousePosition.x) + 0.5f;
+            nowMousePosition.z = Mathf.Floor(nowMousePosition.z) + 0.5f;
 
-            if (Input.GetMouseButtonDown(0))
+            createTurret.transform.position = nowMousePosition + height[turretValue];
+
+            hitLayer = Physics.Raycast(nowMousePosition + new Vector3(0, 5, 0), Vector3.down, 10f, mask);
+            notHitLayer = Physics.Raycast(nowMousePosition + new Vector3(0, 5, 0), Vector3.down, 10f, notMask);
+            renderer = createTurret.GetComponent<Renderer>();
+
+            unableInstallBox = createTurret.transform.Find("UnableInstallBox");
+
+            if (hitLayer && !notHitLayer)
             {
-                createTurret.ActiveTurret();
-                createTurret = null;
+                unableInstallBox.gameObject.SetActive(false);
+
+                if (Input.GetMouseButtonDown(0))
+                {
+                    createTurret.ActiveTurret();
+                    createTurret.gameObject.layer = 8;      // layer : Turret으로 변경
+                    createTurret = null;
+                }
+            }
+            else
+            {
+                unableInstallBox.gameObject.SetActive(true);
             }
         }
     }
@@ -66,8 +100,14 @@ public class TurretShop : MonoBehaviour
         if (nowGold < buyGold) return;
 
         ScoreManager.Instance.gold -= buyGold;
-        mousePosition = Camera.main.ScreenToWorldPoint(mousePosition + new Vector3(0,-40,0));
+        // mousePosition = Camera.main.ScreenToWorldPoint(mousePosition + new Vector3(0,-40,0));
 
         createTurret = Instantiate(turretPrefab[value]);
+        turretValue = value;
+    }
+
+    private void OnDrawGizmos()
+    {
+        Gizmos.DrawRay(nowMousePosition + new Vector3(0, 5, 0), Vector3.down * 10f);
     }
 }

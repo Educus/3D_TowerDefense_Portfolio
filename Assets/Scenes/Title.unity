@@ -1267,12 +1267,15 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   stage: -1
   round: -1
+  maxHp: 10
   hp: 0
+  firstGold: 30
   gold: 0
   clearStage:
   - 
   - 
   - 
+  saveScores: 
   score: []
   nowScore: 0
 --- !u!1 &2025871134

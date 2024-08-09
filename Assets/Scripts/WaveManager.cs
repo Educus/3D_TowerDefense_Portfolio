@@ -52,7 +52,8 @@ public class WaveManager : MonoBehaviour
 
         waveTime -= Time.deltaTime;
 
-        if (waveTime <= 20)
+        // if (waveTime <= 20)
+        if (waveTime <= 30)
         {
             timerImage.fillAmount = waveTime / 20;
             waveButton.SetActive(true);
@@ -74,6 +75,7 @@ public class WaveManager : MonoBehaviour
 
         waitSpawn = false;
         remainTime = (int)waveTime;
+        ScoreManager.Instance.BonusGold(remainTime);
         waveTime = 0;
     }
     public void PauseButton()
@@ -93,9 +95,6 @@ public class WaveManager : MonoBehaviour
     {
         for(int wave = 0; wave < 5; wave++)
         {
-            if (wave != 0)
-                ScoreManager.Instance.BonusGold(remainTime);
-
             waveStrings = waveEnemy[startWave + wave].Split(',');   // 웨이브 불러오기
             enemyType = int.Parse(waveStrings[0]);                  // 웨이브마다 생성되는 몬스터의 종류
 
@@ -133,6 +132,8 @@ public class WaveManager : MonoBehaviour
 
                 if(enemySpawner.transform.childCount == 0)  // (field Enemy == 0) = clear
                 {
+                    Debug.Log("클리어");
+
                     ScoreManager.Instance.SaveScore();
 
                     yield return new WaitForSeconds(3.0f);

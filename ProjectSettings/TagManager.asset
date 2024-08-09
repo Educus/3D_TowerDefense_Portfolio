@@ -5,6 +5,7 @@ TagManager:
   serializedVersion: 2
   tags:
   - Plane
+  - Enemy
   layers:
   - Default
   - TransparentFX
@@ -13,8 +14,8 @@ TagManager:
   - Water
   - UI
   - Object
-  - 
-  - 
+  - TowerMap
+  - Turret
   - 
   - 
   - 

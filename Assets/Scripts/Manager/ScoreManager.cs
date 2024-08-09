@@ -17,11 +17,13 @@ public class ScoreManager : Singleton<ScoreManager>
 
     public int stage = -1;
     public int round = -1;
+    public int maxHp = 10;
     public int hp = 0;
+    public int firstGold = 30;
     public int gold = 0;
 
-    [SerializeField] string[] clearStage = new string[totalStage];
-    private string saveScores = null;                       // 저장용 string
+    [SerializeField] string[] clearStage;
+    public string saveScores = "";                          // 저장용 string
     public string[] score;                                  // 인게임 기록용 string[]
     public int nowScore;                                    // 마지막 게임의 점수
 
@@ -31,7 +33,10 @@ public class ScoreManager : Singleton<ScoreManager>
 
         LoadClearStage();
 
-        if (saveScores == null)
+        clearStage = new string[totalStage];
+        score = new string[totalRound];
+
+        if (saveScores == "")
         {
             for (int i = 0; i < totalStage; i++)
             {
@@ -57,12 +62,13 @@ public class ScoreManager : Singleton<ScoreManager>
 
     public void ResetHp()
     {
-        hp = 5;
-        gold = 30;
+        hp = maxHp;
+        gold = firstGold;
     }
     public void BonusGold(int time)
     {
-        gold += (round * 20) + (time * 2);
+        Debug.Log(time);
+        gold += (round * 20) + (time * 1);
     }
 
     public string StageText(int stage)
@@ -92,11 +98,9 @@ public class ScoreManager : Singleton<ScoreManager>
         // 플레이어의 체력 받아오기
         // 플레이어 체력 : max = 3, 70%이상 = 2, 이외 = 1
         // 이전 점수와 비교
-        int hp = 50;
-
-        if (hp >= 60)
+        if (hp == maxHp)
             nowScore = 3;
-        else if (hp >= 60 * (0.7))
+        else if (hp >= maxHp * (0.7))
             nowScore = 2;
         else
             nowScore = 1;
@@ -104,6 +108,12 @@ public class ScoreManager : Singleton<ScoreManager>
         if (stage == -1 || round == -1) return;
 
         this.score = clearStage[stage].Split(',');
+
+        Debug.Log("now score : " + nowScore);
+        Debug.Log("now stage : " + stage);
+        Debug.Log("now round : " + round);
+        Debug.Log("score[round] : " + (this.score[round]));       // 버그
+        Debug.Log("int.parse(score) : " + int.Parse(this.score[round]));       // 버그
 
         if (int.Parse(this.score[round]) < nowScore)   // 이번에 얻은 점수가 기록된 점수보다 크다면 저장
         {

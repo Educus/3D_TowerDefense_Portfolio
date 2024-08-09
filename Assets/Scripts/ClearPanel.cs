@@ -25,6 +25,8 @@ public class ClearPanel : MonoBehaviour
 
     public void ShowScore()
     {
+        gameObject.SetActive(true);
+
         if (ScoreManager.Instance.round < 5 && gameClear)
         {
             nextButton1.SetActive(true);
