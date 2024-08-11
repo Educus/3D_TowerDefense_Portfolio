@@ -12,8 +12,9 @@ enum MapStage
 
 public class ScoreManager : Singleton<ScoreManager>
 {
-    public static int totalStage = 3;
-    public static int totalRound = 6;
+    // static?
+    public int totalStage = 3;
+    public int totalRound = 6;
 
     public int stage = -1;
     public int round = -1;
@@ -29,15 +30,13 @@ public class ScoreManager : Singleton<ScoreManager>
 
     private void Start()
     {
-        ResetHp();
-
-        LoadClearStage();
-
         clearStage = new string[totalStage];
         score = new string[totalRound];
 
         if (saveScores == "")
         {
+            Debug.Log("발동");
+
             for (int i = 0; i < totalStage; i++)
             {
                 for (int o = 0; o < totalRound; o++)
@@ -58,6 +57,10 @@ public class ScoreManager : Singleton<ScoreManager>
                 }
             }
         }
+
+        ResetHp();
+        LoadClearStage();
+
     }
 
     public void ResetHp()
@@ -67,7 +70,6 @@ public class ScoreManager : Singleton<ScoreManager>
     }
     public void BonusGold(int time)
     {
-        Debug.Log(time);
         gold += (round * 20) + (time * 1);
     }
 
@@ -107,11 +109,12 @@ public class ScoreManager : Singleton<ScoreManager>
 
         if (stage == -1 || round == -1) return;
 
-        this.score = clearStage[stage].Split(',');
 
         Debug.Log("now score : " + nowScore);
-        Debug.Log("now stage : " + stage);
-        Debug.Log("now round : " + round);
+        Debug.Log("stage : " + stage);
+        Debug.Log("round : " + round);
+        Debug.Log("clearStage[stage] : " + clearStage[stage]);
+        this.score = clearStage[stage].Split(',');
         Debug.Log("score[round] : " + (this.score[round]));       // 버그
         Debug.Log("int.parse(score) : " + int.Parse(this.score[round]));       // 버그
 
@@ -167,7 +170,7 @@ public class ScoreManager : Singleton<ScoreManager>
     }
     public void LoadClearStage()    // 파일 불러오기
     {
-        if (PlayerPrefs.HasKey("Score")) ;
+        if (PlayerPrefs.HasKey("Score"))
         {
             saveScores = PlayerPrefs.GetString("Score");
 
