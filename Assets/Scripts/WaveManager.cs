@@ -139,12 +139,11 @@ public class WaveManager : MonoBehaviour
 
                 if(enemySpawner.transform.childCount == 0)  // (field Enemy == 0) = clear
                 {
-                    Debug.Log("클리어");
-
                     ScoreManager.Instance.SaveScore();
 
                     yield return new WaitForSeconds(2.0f);
 
+                    clearPanel.gameClear = true;
                     clearPanel.ShowScore();
 
                     break;

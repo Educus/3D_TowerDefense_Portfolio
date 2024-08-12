@@ -41,8 +41,6 @@ public class UnLockManager : MonoBehaviour
         getStar = new GameObject[totalRound];
 
         StartCoroutine(IECreate());
-
-        
     }
 
     void Update()
@@ -78,7 +76,10 @@ public class UnLockManager : MonoBehaviour
                 stageLocks[i + 1].SetActive(true);
             else
                 stageLocks[i + 1].SetActive(false);
+
+
         }
+        
     }
 
     public void StageLock()
@@ -102,9 +103,10 @@ public class UnLockManager : MonoBehaviour
             if (i != 0)
             {
                 roundLocks[i] = Instantiate(roundLockSystem, transform.Find("RoundLocks"));
-                targetRectTransform = roundViewParent.transform.GetChild(i).GetComponent<RectTransform>();
-                myRectTransform = roundLocks[i].GetComponent<RectTransform>();
-                myRectTransform.anchoredPosition = targetRectTransform.anchoredPosition;
+                // targetRectTransform = roundViewParent.transform.GetChild(i).GetComponent<RectTransform>();
+                // myRectTransform = roundLocks[i].GetComponent<RectTransform>();
+                // myRectTransform.anchoredPosition = targetRectTransform.anchoredPosition;
+                roundLocks[i].transform.position = roundViewParent.transform.GetChild(i).transform.position;
             }
         }
     }
@@ -114,7 +116,7 @@ public class UnLockManager : MonoBehaviour
         for (int i = 0; i < totalRound; i++)
         {
             getStar[i] = Instantiate(getStarSystem, transform.Find("GetStars"));
-            getStar[i].transform.position = roundViewParent.transform.GetChild(i).transform.position + new Vector3(-150, 150, 0);
+            getStar[i].transform.position = roundViewParent.transform.GetChild(i).transform.position + new Vector3(-125, 125, 0);
         }
     }
 
@@ -130,6 +132,15 @@ public class UnLockManager : MonoBehaviour
             {
                 roundLocks[i + 1].SetActive(false);
             }
+        }
+
+        for (int i = 0; i < totalRound; i++)
+        {
+            if (ScoreManager.Instance.BringScore(stage, i) == 3)
+                getStar[i].SetActive(true);
+            else
+                getStar[i].SetActive(false);
+
         }
     }
 }

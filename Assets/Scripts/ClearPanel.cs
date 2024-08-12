@@ -44,7 +44,10 @@ public class ClearPanel : MonoBehaviour
         star2.SetActive(false);
         star3.SetActive(false);
 
-        score = ScoreManager.Instance.nowScore;
+        if (gameClear)
+            score = ScoreManager.Instance.nowScore;
+        else
+            score = 0;
 
         if(score >= 1)
         {

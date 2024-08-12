@@ -13,8 +13,7 @@ public class StageMenuManager : MonoBehaviour
 
     void Start()
     {
-        stageView.SetActive(true);
-        roundView.SetActive(false);
+        StartCoroutine(IEStart());
     }
 
     
@@ -29,6 +28,16 @@ public class StageMenuManager : MonoBehaviour
 
         StartCoroutine(IESelectStage());
     }
+
+    IEnumerator IEStart()
+    {
+        yield return new WaitForEndOfFrame();
+        yield return new WaitForEndOfFrame();
+
+        stageView.SetActive(true);
+        roundView.SetActive(false);
+    }
+
     IEnumerator IESelectStage( )    // Stage 선택 시 어두워지고 Active 비활성화 및 Round 활성화 후 밝아짐
     {
         yield return StartCoroutine(SceneController.Instance.ReFade());
