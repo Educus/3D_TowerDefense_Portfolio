@@ -16,6 +16,7 @@ public class ClearPanel : MonoBehaviour
     [SerializeField] GameObject star3;
 
     public bool gameClear = true;
+    public int score = 0;
 
     void Start()
     {
@@ -43,11 +44,11 @@ public class ClearPanel : MonoBehaviour
         star2.SetActive(false);
         star3.SetActive(false);
 
-        int score = ScoreManager.Instance.nowScore;
+        score = ScoreManager.Instance.nowScore;
 
         if(score >= 1)
         {
-                star1.SetActive(true);
+            star1.SetActive(true);
             if (score >= 2)
             {
                 star2.SetActive(true);

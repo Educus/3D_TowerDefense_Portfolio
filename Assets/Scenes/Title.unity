@@ -687,7 +687,7 @@ Canvas:
   m_AdditionalShaderChannelsFlag: 0
   m_UpdateRectTransformForStandalone: 0
   m_SortingLayerID: 0
-  m_SortingOrder: 1
+  m_SortingOrder: 100
   m_TargetDisplay: 0
 --- !u!1 &984951203
 GameObject:
@@ -1265,6 +1265,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f1723705a5a5ebe4987dc5a49b399185, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  totalStage: 3
+  totalRound: 6
   stage: -1
   round: -1
   maxHp: 10

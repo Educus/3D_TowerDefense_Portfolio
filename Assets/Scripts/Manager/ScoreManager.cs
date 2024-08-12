@@ -35,8 +35,6 @@ public class ScoreManager : Singleton<ScoreManager>
 
         if (saveScores == "")
         {
-            Debug.Log("발동");
-
             for (int i = 0; i < totalStage; i++)
             {
                 for (int o = 0; o < totalRound; o++)
@@ -60,7 +58,6 @@ public class ScoreManager : Singleton<ScoreManager>
 
         ResetHp();
         LoadClearStage();
-
     }
 
     public void ResetHp()
@@ -80,7 +77,7 @@ public class ScoreManager : Singleton<ScoreManager>
         return mapStage.ToString();
     }
 
-    MapStage IntToMapStage(int stage)
+    private MapStage IntToMapStage(int stage)
     {
         return (MapStage)stage;
     }
@@ -93,6 +90,13 @@ public class ScoreManager : Singleton<ScoreManager>
     public void NowRound(int round)
     {
         this.round = round;
+    }
+
+    public int BringScore(int needStage, int needRound) // needStage와 needRound로 해당 위치의 점수 가져오기
+    {
+        score = clearStage[needStage].Split(',');
+
+        return int.Parse(score[needRound]);
     }
 
     public void SaveScore()
@@ -109,18 +113,9 @@ public class ScoreManager : Singleton<ScoreManager>
 
         if (stage == -1 || round == -1) return;
 
-
-        Debug.Log("now score : " + nowScore);
-        Debug.Log("stage : " + stage);
-        Debug.Log("round : " + round);
-        Debug.Log("clearStage[stage] : " + clearStage[stage]);
-        this.score = clearStage[stage].Split(',');
-        Debug.Log("score[round] : " + (this.score[round]));       // 버그
-        Debug.Log("int.parse(score) : " + int.Parse(this.score[round]));       // 버그
-
-        if (int.Parse(this.score[round]) < nowScore)   // 이번에 얻은 점수가 기록된 점수보다 크다면 저장
+        if (BringScore(stage, round) < nowScore)   // 이번에 얻은 점수가 기록된 점수보다 크다면 저장
         {
-            this.score[round] = nowScore.ToString();
+            score[round] = nowScore.ToString();
 
             UpLoadScore();
         }
