@@ -101,7 +101,8 @@ public class WaveManager : MonoBehaviour
 
     public void WaveStart()
     {
-        ScoreManager.Instance.gold += 20;
+        if (waveOrder != 0)
+            ScoreManager.Instance.gold += 20;
 
         for (int wave = 0; wave < 5; wave++)
         {
