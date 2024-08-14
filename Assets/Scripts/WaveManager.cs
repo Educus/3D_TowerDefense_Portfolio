@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Threading;
 using TMPro;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -100,7 +101,9 @@ public class WaveManager : MonoBehaviour
 
     public void WaveStart()
     {
-        for(int wave = 0; wave < 5; wave++)
+        ScoreManager.Instance.gold += 20;
+
+        for (int wave = 0; wave < 5; wave++)
         {
             waveStrings = waveEnemy[startWave + wave].Split(',');   // 웨이브 불러오기
             enemyType = int.Parse(waveStrings[0]);                  // 웨이브마다 생성되는 몬스터의 종류
@@ -154,7 +157,7 @@ public class WaveManager : MonoBehaviour
 
 
 
-    public string[] waveEnemy = // enemyType, enemySirialNumber1, enemyNumber1, SirialNumber2, Number2 ....
+    private string[] waveEnemy = // enemyType, enemySirialNumber1, enemyNumber1, SirialNumber2, Number2 ....
         {
         "1,0,5", // Desert 1round 1wave
         "1,1,5", // Desert 1round 2wave

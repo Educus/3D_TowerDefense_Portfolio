@@ -67,7 +67,7 @@ public class ScoreManager : Singleton<ScoreManager>
     }
     public void BonusGold(int time)
     {
-        gold += (round * 20) + (time * 1);
+        gold += time * 1;
     }
 
     public string StageText(int stage)
@@ -171,5 +171,31 @@ public class ScoreManager : Singleton<ScoreManager>
 
             clearStage = saveScores.Split(':');
         }
+    }
+
+    public void HardResetButton()
+    {
+        for (int i = 0; i < totalStage; i++)
+        {
+            for (int o = 0; o < totalRound; o++)
+            {
+                if (o == 0)
+                {
+                    clearStage[i] = "0";
+                }
+                else
+                {
+                    clearStage[i] += "0";
+                }
+
+                if (o + 1 != totalRound)
+                {
+                    clearStage[i] += ",";
+                }
+            }
+        }
+
+        SaveClearStage();
+        LoadClearStage();
     }
 }
