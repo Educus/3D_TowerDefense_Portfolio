@@ -8,4 +8,9 @@ public class MainMenu : MonoBehaviour
     {
         StartCoroutine(SceneController.Instance.AsyncLoad(1));
     }
+
+    public void HardReset() // 추가 할 것
+    {
+
+    }
 }

@@ -537,7 +537,7 @@ Transform:
   m_GameObject: {fileID: 437588214}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: -10}
+  m_LocalPosition: {x: 0, y: 50, z: -10}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 1
   m_Children: []
@@ -811,6 +811,37 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1031139074}
   m_CullTransparentMesh: 1
+--- !u!1 &1182255557
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1182255558}
+  m_Layer: 0
+  m_Name: PopupManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1182255558
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1182255557}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 4.9626617, y: 19.545303, z: 21.357466}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1421216067
 GameObject:
   m_ObjectHideFlags: 0
@@ -1109,7 +1140,7 @@ GameObject:
   - component: {fileID: 1791895775}
   - component: {fileID: 1791895776}
   m_Layer: 0
-  m_Name: MainMenuManager
+  m_Name: Main Menu
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1267,16 +1298,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   totalStage: 3
   totalRound: 6
-  stage: -1
-  round: -1
+  stage: 
   maxHp: 10
   hp: 0
   firstGold: 30
   gold: 0
-  clearStage:
-  - 
-  - 
-  - 
   saveScores: 
   score: []
   nowScore: 0
@@ -1361,7 +1387,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1850366868}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1791895776}
+        m_TargetAssemblyTypeName: MainMenu, Assembly-CSharp
+        m_MethodName: HardReset
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &1850366868
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1470,7 +1508,7 @@ Canvas:
   serializedVersion: 3
   m_RenderMode: 1
   m_Camera: {fileID: 437588216}
-  m_PlaneDistance: 0.3001
+  m_PlaneDistance: 10
   m_PixelPerfect: 0
   m_ReceivesEvents: 1
   m_OverrideSorting: 0
@@ -1517,7 +1555,7 @@ GameObject:
   - component: {fileID: 2092673971}
   - component: {fileID: 2092673970}
   m_Layer: 5
-  m_Name: Title
+  m_Name: Title Text
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1714,10 +1752,11 @@ SceneRoots:
   - {fileID: 77430159}
   - {fileID: 87888196}
   - {fileID: 113173873}
-  - {fileID: 851941336}
+  - {fileID: 2025871138}
+  - {fileID: 1605949709}
+  - {fileID: 22479143}
   - {fileID: 103802938}
+  - {fileID: 851941336}
   - {fileID: 1825413235}
   - {fileID: 984951205}
-  - {fileID: 2025871138}
-  - {fileID: 22479143}
-  - {fileID: 1605949709}
+  - {fileID: 1182255558}

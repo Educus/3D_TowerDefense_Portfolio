@@ -20,15 +20,15 @@ public class ClearPanel : MonoBehaviour
 
     void Start()
     {
-        stageboard.text = ScoreManager.Instance.StageText(ScoreManager.Instance.stage);
-        roundboard.text = "Stage " + (ScoreManager.Instance.round + 1);
+        stageboard.text = ScoreManager.Instance.StageText(ScoreManager.Instance.stage[0]);
+        roundboard.text = "Stage " + (ScoreManager.Instance.stage[1] + 1);
     }
 
     public void ShowScore()
     {
         gameObject.SetActive(true);
 
-        if (ScoreManager.Instance.round < 5 && gameClear)
+        if (ScoreManager.Instance.stage[1] < 5 && gameClear)
         {
             nextButton1.SetActive(true);
             nextButton2.SetActive(false);
@@ -65,7 +65,7 @@ public class ClearPanel : MonoBehaviour
 
     public void NextButton()
     {
-        ScoreManager.Instance.NowRound(++ScoreManager.Instance.round);
+        ScoreManager.Instance.NowRound(++ScoreManager.Instance.stage[1]);
         ScoreManager.Instance.ResetHp();
         NewMap(2);
     }

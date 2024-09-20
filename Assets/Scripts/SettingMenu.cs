@@ -43,9 +43,8 @@ public class SettingMenu : MonoBehaviour
 
         if (nowScenes == 0)
         {
-
-            // Application.Quit();
-            UnityEditor.EditorApplication.isPlaying = false;
+            Application.Quit();
+            // UnityEditor.EditorApplication.isPlaying = false;
         }
         else
         {

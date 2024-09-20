@@ -29,8 +29,8 @@ public class WaveManager : MonoBehaviour
 
     private void Start()
     {
-        int stage = ScoreManager.Instance.stage;
-        int round = ScoreManager.Instance.round;
+        int stage = ScoreManager.Instance.stage[0];
+        int round = ScoreManager.Instance.stage[1];
         enemySerialNumber = new int[5, enemySpawner.prefab.Length];
         enemyNumber = new int[5, enemySpawner.prefab.Length];
         startWave = (stage * 6 * 5) + (round * 5); // 스테이지 * 6라운드 * 5웨이브 + 라운드 * 5웨이브
@@ -133,7 +133,7 @@ public class WaveManager : MonoBehaviour
 
             waveOrder++;
             waitSpawn = false;      // update start
-            waveTime = 30;          // 30s Initialization
+            waveTime = 25;          // 30s Initialization
         }
         else
         {

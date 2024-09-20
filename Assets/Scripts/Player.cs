@@ -5,6 +5,27 @@ using UnityEngine;
 
 public class Player : MonoBehaviour
 {
+    // 바꿀 예정
+    /*
+    public static int maxHp = 10;
+    public static int firstGold = 30;
+
+    public int hp = 0;
+    public int gold = 0;
+
+
+    public void ResetHp()
+    {
+        hp = maxHp;
+        gold = firstGold;
+    }
+    public void BonusGold(int time)
+    {
+        gold += time * 1;
+    }
+    */
+
+
     private void OnEnable()
     {
         InputManager.Instance.keyAction += OnKeyUpdate;

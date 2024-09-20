@@ -13,8 +13,8 @@ public class StageManager : MonoBehaviour
 
     private void Awake()
     {
-        stage = ScoreManager.Instance.stage;
-        round = ScoreManager.Instance.round;
+        stage = ScoreManager.Instance.stage[0];
+        round = ScoreManager.Instance.stage[1];
 
         CreateMap();
     }

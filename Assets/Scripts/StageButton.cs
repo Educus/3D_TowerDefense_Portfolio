@@ -2,7 +2,6 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
-using UnityEditor.SceneManagement;
 
 public class StageButton : MonoBehaviour
 {
@@ -21,7 +20,7 @@ public class StageButton : MonoBehaviour
 
     private void Update()
     {
-        stage = ScoreManager.Instance.stage;
+        stage = ScoreManager.Instance.stage[0];
         if (stage == beforeStage)
         {
             return;
@@ -35,7 +34,7 @@ public class StageButton : MonoBehaviour
 
     public void ChangingText()
     {
-        string stageText = ScoreManager.Instance.StageText(ScoreManager.Instance.stage);
+        string stageText = ScoreManager.Instance.StageText(ScoreManager.Instance.stage[0]);
 
         roundText.text = stageText + " " + (roundValue + 1).ToString();
     }
