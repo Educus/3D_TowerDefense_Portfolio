@@ -4,8 +4,8 @@ using UnityEngine;
 
 public class Atest : MonoBehaviour
 {
-    void Start()
+
+    private void Start()
     {
-        Debug.Log(transform.position);
     }
 }

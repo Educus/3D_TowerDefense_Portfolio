@@ -82,7 +82,7 @@ public class TurretShop : MonoBehaviour
     [Tooltip("0 : basic, 1:cannon, 2:slow")]
     public void CreateTurret(int value)
     {
-        nowGold = ScoreManager.Instance.gold;
+        nowGold = StateManager.Instance.gold;
 
         switch(value)
         {
@@ -99,7 +99,7 @@ public class TurretShop : MonoBehaviour
 
         if (nowGold < buyGold) return;
 
-        ScoreManager.Instance.gold -= buyGold;
+        StateManager.Instance.gold -= buyGold;
         // mousePosition = Camera.main.ScreenToWorldPoint(mousePosition + new Vector3(0,-40,0));
 
         createTurret = Instantiate(turretPrefab[value]);

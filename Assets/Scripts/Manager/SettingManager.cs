@@ -49,7 +49,7 @@ public class SettingManager : Singleton<SettingManager>
 
     public void CursorConfined()
     {
-        Cursor.lockState = CursorLockMode.Confined;
+        // Cursor.lockState = CursorLockMode.Confined;
     }
 
 }

@@ -10,7 +10,7 @@ public class ScoreBoard : MonoBehaviour
 
     void Update()
     {
-        hpText.text = ScoreManager.Instance.hp.ToString();
-        goldText.text = ScoreManager.Instance.gold.ToString();
+        hpText.text = StateManager.Instance.hp.ToString();
+        goldText.text = StateManager.Instance.gold.ToString();
     }
 }

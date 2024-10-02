@@ -42,7 +42,7 @@ public class StageButton : MonoBehaviour
     public void SelectRound()
     {
         ScoreManager.Instance.NowRound(roundValue);
-        ScoreManager.Instance.ResetHp();
+        StateManager.Instance.ResetState();
 
         Execute();
     }

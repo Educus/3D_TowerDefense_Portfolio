@@ -17,12 +17,6 @@ public class ScoreManager : Singleton<ScoreManager>
 
     public int[] stage = new int[]{ -1, -1 };
 
-    // 바꿀 예정
-    public int maxHp = 10;
-    public int hp = 0;
-    public int firstGold = 30;
-    public int gold = 0;
-
     public List<List<int>> clearStages = new List<List<int>>(); // 점수 저장용
     // [SerializeField] string[] clearStage;
     // public string saveScores = "";                          // 저장용 string
@@ -44,36 +38,6 @@ public class ScoreManager : Singleton<ScoreManager>
         }
 
         LoadClearStage();
-
-        /*
-        clearStage = new string[totalStage];
-        score = new string[totalRound];
-
-        if (saveScores == "")
-        {
-            for (int i = 0; i < totalStage; i++)
-            {
-                for (int o = 0; o < totalRound; o++)
-                {
-                    if (o == 0)
-                    {
-                        clearStage[i] = "0";
-                    }
-                    else
-                    {
-                        clearStage[i] += "0";
-                    }
-
-                    if (o + 1 != totalRound)
-                    {
-                        clearStage[i] += ",";
-                    }
-                }
-            }
-        }
-        */
-
-        // ResetHp();
     }
 
     private void Update()
@@ -81,19 +45,6 @@ public class ScoreManager : Singleton<ScoreManager>
         // 치트키
         if (Input.GetKey(KeyCode.LeftControl) && Input.GetKey(KeyCode.Q)) Cheat();
     }
-
-    
-    // 바꿀 예정
-    public void ResetHp()
-    {
-        hp = maxHp;
-        gold = firstGold;
-    }
-    public void BonusGold(int time)
-    {
-        gold += time * 1;
-    }
-    
 
     // stage에 따른 맵 이름
     public string StageText(int stage)
@@ -127,17 +78,15 @@ public class ScoreManager : Singleton<ScoreManager>
     // 점수 받아와서 비교하기
     public void SaveScore()
     {
-        /*
         // 플레이어의 체력 받아오기
         // 플레이어 체력 : max = 3, 70%이상 = 2, 이외 = 1
-        // 이전 점수와 비교
-        if (hp == maxHp)
+        // 저장된 이전 점수와 비교
+        if (StateManager.Instance.hp == StateManager.maxHp)
             nowScore = 3;
-        else if (hp >= maxHp * (0.7))
+        else if (StateManager.Instance.hp >= StateManager.maxHp * (0.7))
             nowScore = 2;
         else
             nowScore = 1;
-        */
 
         if (stage[0] == -1 || stage[1] == -1) return;
 

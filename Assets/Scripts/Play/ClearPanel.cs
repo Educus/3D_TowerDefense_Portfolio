@@ -66,12 +66,12 @@ public class ClearPanel : MonoBehaviour
     public void NextButton()
     {
         ScoreManager.Instance.NowRound(++ScoreManager.Instance.stage[1]);
-        ScoreManager.Instance.ResetHp();
+        StateManager.Instance.ResetState();
         NewMap(2);
     }
     public void RetryButton()
     {
-        ScoreManager.Instance.ResetHp();
+        StateManager.Instance.ResetState();
         NewMap(2);
     }
     public void HomeButton()

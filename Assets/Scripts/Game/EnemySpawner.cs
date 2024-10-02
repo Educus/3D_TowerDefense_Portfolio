@@ -6,7 +6,7 @@ using UnityEngine;
 public class EnemySpawner : MonoBehaviour
 {
     [SerializeField] public Enemy[] prefab;
-    [SerializeField] StageManager stageManager;
+    [SerializeField] MapManager mapManager;
     [SerializeField] Transform[] corners;
 
     public GameObject map;
@@ -15,7 +15,7 @@ public class EnemySpawner : MonoBehaviour
 
     private void Start()
     {
-        map = stageManager.GetMap();
+        map = mapManager.GetMap();
         corner = map.transform.Find("Grid").gameObject.transform.Find("CornerMap").gameObject;
         cornerChild = corner.transform.childCount;
 
@@ -31,7 +31,7 @@ public class EnemySpawner : MonoBehaviour
     {
         int remaining = howMany;
 
-        while (remaining > 0 && ScoreManager.Instance.hp > 0)
+        while (remaining > 0 && StateManager.Instance.hp > 0)
         {
             yield return new WaitForSeconds(spawnRate);
             Enemy newEnemy = Instantiate(prefab[howEnemy], transform);

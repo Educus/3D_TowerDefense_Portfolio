@@ -19,14 +19,14 @@ public class Enemy : MonoBehaviour, IHitablea
 
     private void Update()
     {
-        if (ScoreManager.Instance.hp <= 0)
+        if (StateManager.Instance.hp <= 0)
         {
             return;
         }
     
         if (cornerQueue.Count <= 0)
         {
-            ScoreManager.Instance.hp -= 1;
+            StateManager.Instance.hp -= 1;
             Destroy(gameObject);
             return;
         }
@@ -53,7 +53,7 @@ public class Enemy : MonoBehaviour, IHitablea
 
         if(enemyHp <= 0)
         {
-            ScoreManager.Instance.gold += 1;
+            StateManager.Instance.gold += 1;
             Destroy(gameObject);
         }
     }
