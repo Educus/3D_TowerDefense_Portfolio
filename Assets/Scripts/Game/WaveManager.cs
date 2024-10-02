@@ -89,18 +89,7 @@ public class WaveManager : MonoBehaviour
         StateManager.Instance.BonusGold(remainTime);
         waveTime = 0;
     }
-    public void PauseButton()
-    {
-        switch(Time.timeScale)
-        {
-            case 0:
-                Time.timeScale = 1;
-                break;
-            case 1:
-                Time.timeScale = 0;
-                break;
-        }
-    }
+    
 
     public void WaveStart()
     {
