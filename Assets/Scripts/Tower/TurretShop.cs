@@ -6,8 +6,10 @@ using UnityEngine;
 
 public class TurretShop : MonoBehaviour
 {
-    [SerializeField] Turret[] turretPrefab;
-    [SerializeField] Turret createTurret;
+    // [SerializeField] Turret[] turretPrefab;
+    [SerializeField] List <TurretBase> turretPrefab;
+    // [SerializeField] Turret createTurret;
+    [SerializeField] TurretBase createTurret;
     [SerializeField] Vector3[] height;
 
     Ray ray;
@@ -27,11 +29,20 @@ public class TurretShop : MonoBehaviour
     Vector3 nowMousePosition;
     Vector3 mousePosition;
 
-    Transform unableInstallBox;
+    GameObject unableInstallBox;
 
     private void Start()
     {
-        height = new Vector3[turretPrefab.Length];
+        turretPrefab.Clear();
+        turretPrefab.Add(Resources.Load<TurretBase>("BasicsTurret_LV1"));
+        turretPrefab.Add(Resources.Load<TurretBase>("CannonTurret"));
+        turretPrefab.Add(Resources.Load<TurretBase>("SlowTurret_Lv1"));
+        unableInstallBox = Instantiate(Resources.Load<GameObject>("UnableInstallBox"));
+        unableInstallBox.SetActive(false);
+
+
+        // height = new Vector3[turretPrefab.Length];
+        height = new Vector3[turretPrefab.Count];
         mask = 1 << LayerMask.NameToLayer("TowerMap") ;
         notMask = 1 << LayerMask.NameToLayer("Turret");
 
@@ -59,7 +70,7 @@ public class TurretShop : MonoBehaviour
             notHitLayer = Physics.Raycast(nowMousePosition + new Vector3(0, 5, 0), Vector3.down, 10f, notMask);
             renderer = createTurret.GetComponent<Renderer>();
 
-            unableInstallBox = createTurret.transform.Find("UnableInstallBox");
+            // unableInstallBox = createTurret.transform.Find("UnableInstallBox");
 
             if (hitLayer && !notHitLayer)
             {
@@ -75,6 +86,7 @@ public class TurretShop : MonoBehaviour
             else
             {
                 unableInstallBox.gameObject.SetActive(true);
+                unableInstallBox.transform.position = createTurret.transform.position;
             }
         }
     }
